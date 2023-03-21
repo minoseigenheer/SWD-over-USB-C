@@ -10,9 +10,8 @@
  ## USB-C pinout
  The USB-C connecor has 24 pins in total. 10 of them are used for Vbus (power), GND and CC (Configuration Channels) which leaves 14 pins free for manufacturer-specific port configuration in debug mode.  
  Because 5 additional debug pins where enough for me and I did not want to detect the orientation of the plug, I decided to go with a reversable pin configuration and kept the USB 2.0 differential pair connected in the debug mode.
-```
- A normal USB-C cable can not be used because they don't pass trough both CC1 and CC2.
-```
+ > A normal USB-C cable can not be used because they don't pass trough both CC1 and CC2.
+
  <img src="images/SWD over USB-C Pinout-01.png" width="600" alt="SWD over USB-C pinout"/>
  
  ## Debugger connections
@@ -24,9 +23,15 @@
  Order from Mouser for € 10,75 https://eu.mouser.com/ProductDetail/STMicroelectronics/STLINK-V3MINIE
 
  ### ST-Link V2 clones [IDC10]
- Clones are available for a few dollars from china.  
+ Clones usually work fine but differ a bit from the original.  
+ They do not detect the device voltage and work with 3.3V only!
+ The good thing is they can supply a few mA 3.3V and 5V to power the device during programming.  
+ The clones also don't bring out SWO (printf traces) but you can modify it yourself if you need traces.  https://sudonull.com/post/20076-Completion-of-the-Chinese-ST-Link-v2-add-the-SWO-debug-information-output-interface-and-foot-reset  
+
+ They are available for a few dollars from china.  
  https://nl.aliexpress.com/w/wholesale-ST%2525252dlink-V2.html
- The clones don't bring out SWO (printf traces) but you can modify it yourself if you need traces.  https://sudonull.com/post/20076-Completion-of-the-Chinese-ST-Link-v2-add-the-SWO-debug-information-output-interface-and-foot-reset
+
+ > <b>Maybe somone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply and directly has a male USB-C on the other side for SWD over USB-C. </b>
 
  ## USB-C to SWD connector board
  <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
@@ -42,12 +47,12 @@
 
  A logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
  Make sure your debug connector pulls the CC pins above the AND gate minimum high-state voltage (2V in my case) or add an OpAmp between the CC pin's of the connector and the AND gate to boost the voltage.
-```
- This connector board pulls the CC pins to 5V without a pull-up resistor at all. 
-```
- <img src="images/debug_mode_enable_circuit.png" width="600" alt="SWD over USB-C pinout"/>
 
- The [target device schematics](/Schematic%20SWD%20over%20USB-C%20%20target%20device.pdf) shows an example of the whole device USB circuit.  
+ > This connector board pulls the CC pins to 5V without a pull-up resistor at all. 
+
+ <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
+
+ The [target device schematics](/Schematic_DAM_detection.pdf) shows an example of the whole device USB circuit.  
 
  ## Links
  https://en.wikipedia.org/wiki/USB-C#Debug_Accessory_Mode  
