@@ -38,17 +38,17 @@
  Render of the USB-C to SWD connector board
 
  ## Target device debug accessory mode detection 
- Normal USB-C cables connect only one CC line which determines the orientation of the plug. The host's pull-up resistor defines the maximum current which can be drawn (for example 56k to 5V for 500mA) and the device pulls the CC line down with a 5.1k pull-down to enable host power delivery.
+ Normal USB-C cables connect only one CC line which determines the orientation of the plug. The host's pull-up resistor defines the maximum current which can be drawn (for example 56kΩ to 5V for 500mA) and the device pulls the CC line down with a 5.1kΩ pull-down to enable host power delivery.
  For DAM (Debug Accessory Mode) we need to pull both CC lines high.  
  The official DAM resistor values are a bit different.  
- For 500mA @5V 10k on CC1 and 22k on CC2 should be used.  
- - CC1: Host 22k pull-up to 5V and device 5.1k pull-down = 0.9V
- - CC2: Host 10k pull-up to 5V and device 5.1k pull-down = 1.7V
+ For 500mA @5V 10kΩ on CC1 and 22kΩ on CC2 should be used.  
+ - CC1: Host 22kΩ pull-up to 5V and device 5.1kΩ pull-down = 0.9V
+ - CC2: Host 10kΩ pull-up to 5V and device 5.1kΩ pull-down = 1.7V
 
  A logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
- Make sure your debug connector pulls the CC pins above the AND gate minimum high-state voltage (2V in my case) or add an OpAmp between the CC pin's of the connector and the AND gate to boost the voltage.
-
- > This connector board pulls the CC pins to 5V without a pull-up resistor at all. 
+ I added OpAmps in front of the AND gate to boost the CC voltages above the minimum high-state voltage (2V for SN74LVC1G08).  
+ > If you don't care about the official specs you don't need the OpAmps and just use very low CC pull-up resistors on your debug connector board.  
+ > This debug connector board pulls the CC pins to 5V without a pull-up resistor at all (0Ω) which would not work if you are using a USB-C PD chip with DAM detection. 
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
 
