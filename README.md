@@ -31,7 +31,7 @@
  They are available for a few dollars from china.  
  https://nl.aliexpress.com/w/wholesale-ST%2525252dlink-V2.html
 
- > <b>Maybe somone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply and directly has a male USB-C on the other side for SWD over USB-C. </b>
+ > <b>Maybe somone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply from the USB host and directly has a male USB-C on the other side for SWD over USB-C. </b>
 
  ## USB-C to SWD connector board
  <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
@@ -47,7 +47,8 @@
 
  A logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
  I added OpAmps in front of the AND gate to boost the CC voltages above the minimum high-state voltage (2V for SN74LVC1G08).  
- > If you don't care about the official specs you don't need the OpAmps and just use very low CC pull-up resistors on your debug connector board.  
+ 
+ If you don't care about the official specs you don't need the OpAmps and just use very low CC pull-up resistors on your debug connector board.  
  > This debug connector board pulls the CC pins to 5V without a pull-up resistor at all (0Ω) which would not work if you are using a USB-C PD chip with DAM detection. 
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
