@@ -1,15 +1,15 @@
 # SWD over USB-C
- It can be usefull to have a single USB-C connector which can be used in device or host mode during normal operation and also gives access to SWD (single wire debugging) over the same USB-C connector.  
- With DAM (Debug Accessory Mode) this is possible.
+ I like the idea to have a single USB-C connector which can be used for USB 2.0 and also gives access to SWD (single wire debugging) both on the same USB-C connector.  
+ With USB-C DAM (Debug Accessory Mode) this is possible.  
  https://en.wikipedia.org/wiki/USB-C#Debug_Accessory_Mode  
- In my case I use the device USB-C connector for client software updates with a normal USB-C cable. For debugging and initial programming of the USB bootloader SWD is used.
+ In my case I want to use the USB-C connector for client software updates with a normal USB-C cable. And for debugging and initial programming of the USB boot loader a ST-link can be connected to the same port.
   
- To let the target defice know that we want to enter debug mode, CC1 and CC2 (Configuration Channels) both have to be pulled high. The target device can then enable the SWD lines.  
+ To let the target device know that we want to enter debug mode, CC1 and CC2 (Configuration Channels) both have to be pulled high. The target device can then enable the SWD lines.  
  Check out the "Debug accessory mode detection" section for detail how the detection on the target device is done.  
 
  ## USB-C pinout
- The USB-C connecor has 24 pins in total. 10 of them are used for Vbus (power), GND and CC (Configuration Channels) which leaves 14 pins free for manufacturer-specific port configuration in debug mode.  
- Because 5 additional debug pins where enough for me and I did not want to detect the orientation of the plug, I decided to go with a reversable pin configuration and kept the USB 2.0 differential pair connected in the debug mode.
+ The USB-C connector has 24 pins in total. 10 of them are used for Vbus (power), GND and CC (Configuration Channels) which leaves 14 pins free for manufacturer-specific port configuration in debug mode.  
+ Because 5 additional debug pins where enough for me and I did not want to detect the orientation of the plug, I decided to go with a reversible pin configuration and kept the USB 2.0 differential pair connected in the debug mode.
  > A normal USB-C cable can not be used because they don't pass trough both CC1 and CC2.
 
  <img src="images/SWD over USB-C Pinout-01.png" width="600" alt="SWD over USB-C pinout"/>
@@ -31,7 +31,7 @@
  They are available for a few dollars from china.  
  https://nl.aliexpress.com/w/wholesale-ST%2525252dlink-V2.html
 
- > <b>Maybe somone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply from the USB host and directly has a male USB-C on the other side for SWD over USB-C. </b>
+ > Maybe someone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply from the USB host and directly has a male USB-C on the other side for SWD over USB-C. 
 
  ## USB-C to SWD connector board
  <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
@@ -48,11 +48,12 @@
  A logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
  I added OpAmps in front of the AND gate to boost the CC voltages above the minimum high-state voltage (2V for SN74LVC1G08).  
  
- If you don't care about the official specs you don't need the OpAmps and just use very low CC pull-up resistors on your debug connector board.  
- > This debug connector board pulls the CC pins to 5V without a pull-up resistor at all (0Ω) which would not work if you are using a USB-C PD chip with DAM detection. 
+ If you don't care about the official specs you could leave the OpAmps away and just use low CC pull-up resistors on your debug connector board.  
+ > My debug connector board pulls the CC pins to 5V without a pull-up resistor at all (0Ω) which would not work if you are using a USB-C PD chip with DAM detection. 
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
 
+ <b>Make sure you add EST protection to all USB and SWD signal lines! </b>  
  The [target device schematics](/Schematic_DAM_detection.pdf) shows an example of the whole device USB circuit.  
 
  ## Links
