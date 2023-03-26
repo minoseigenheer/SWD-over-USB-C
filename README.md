@@ -26,12 +26,12 @@
  Clones usually work fine but differ a bit from the original.  
  They do not detect the device voltage and work with 3.3V only!
  The good thing is they can supply a few mA 3.3V and 5V to power the device during programming.  
- The clones also don't bring out SWO (printf traces) but you can modify it yourself if you need traces.  https://sudonull.com/post/20076-Completion-of-the-Chinese-ST-Link-v2-add-the-SWO-debug-information-output-interface-and-foot-reset  
+ These clones don't bring out SWO (printf traces) but you can modify it yourself if you need traces.  https://sudonull.com/post/20076-Completion-of-the-Chinese-ST-Link-v2-add-the-SWO-debug-information-output-interface-and-foot-reset  
 
  They are available for a few dollars from china.  
  https://nl.aliexpress.com/w/wholesale-ST%2525252dlink-V2.html
 
- > Maybe someone will make a clone ST-Link which combines the official features (SWO traces, MCU voltage detection...) with 5V power supply from the USB host and directly has a male USB-C on the other side for SWD over USB-C. 
+ > Maybe someone will make a clone ST-Link V3 which combines the official features (SWO traces, MCU voltage detection, fast programming...) with 5V power supply from the USB host and directly has a male USB-C on the other side for SWD over USB-C.
 
  ## USB-C to SWD connector board
  <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
@@ -45,7 +45,7 @@
  - CC1: Host 22kΩ pull-up to 5V and device 5.1kΩ pull-down = 0.9V
  - CC2: Host 10kΩ pull-up to 5V and device 5.1kΩ pull-down = 1.7V
  
- First we need OpAmps to boost the CC voltages above the minimum high-state voltage of the AND gate (2V for SN74LVC1G08).   
+ First we need two OpAmps to boost the CC voltages above the minimum high-state voltage of the AND gate (2V for SN74LVC1G08).   
  The logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
