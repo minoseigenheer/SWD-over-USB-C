@@ -44,12 +44,9 @@
  For 500mA @5V 10kΩ on CC1 and 22kΩ on CC2 should be used.  
  - CC1: Host 22kΩ pull-up to 5V and device 5.1kΩ pull-down = 0.9V
  - CC2: Host 10kΩ pull-up to 5V and device 5.1kΩ pull-down = 1.7V
-
- A logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
- I added OpAmps in front of the AND gate to boost the CC voltages above the minimum high-state voltage (2V for SN74LVC1G08).  
  
- If you don't care about the official specs you could leave the OpAmps away and just use low CC pull-up resistors on your debug connector board.  
- > My debug connector board pulls the CC pins to 5V without a pull-up resistor at all (0Ω) which would not work if you are using a USB-C PD chip with DAM detection. 
+ First we need OpAmps to boost the CC voltages above the minimum high-state voltage of the AND gate (2V for SN74LVC1G08).   
+ The logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
 
