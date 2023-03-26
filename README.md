@@ -23,7 +23,7 @@
  - CC2: Host 10kΩ pull-up to 5V and device 5.1kΩ pull-down = 1.7V
  
  First we need two OpAmps to boost the CC voltages above the minimum high-state voltage of the AND gate (2V for SN74LVC1G08).   
- The logic AND gate (SN74LVC1G08) checks if CC1 and CC2 are logic one and switches a 4-channel MUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
+ The logic AND gate (SN74LVC1G08) checks if both CC1 and CC2 are logic one and switches a 4-channel TMUX switch (TMUX1511) which connects the SWD lines to the USB-C connector.  
 
  <img src="images/DAM_detection_circuit.png" width="600" alt="SWD over USB-C pinout"/>
 
@@ -31,7 +31,7 @@
  The [target device schematics](/Schematic_DAM_detection.pdf) shows an example of the whole device USB circuit.  
  
  ## USB-C to SWD connector board
- [schematics can be found here.](/Schematic_USB-C_to_ST-Link.pdf)
+ [schematics can be found here.](/Schematic_USB-C_to_ST-Link.pdf)  
  <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
  Render of the USB-C to SWD connector board
 
@@ -39,7 +39,7 @@
  Two different pinouts for a ST-Link are available on this breakout board.
  #### ST-Link V3 mini [STDC14]
  I like the ST-Link V3 mini because they are small, cheap and designed by STM32. The only down side in my opinion is that they are built to work with 1.65V to 3.6V MCU's and for that reason don't supply power to your target device like all official ST-links.  
- You need to power your device separately. You need to connect 5V and GND on the debug connector board to a external power supply.
+ You need to power your device separately. You need to connect 5V and GND on the debug connector board to a external power supply.  
  https://www.st.com/en/development-tools/stlink-v3minie.html  
  or the older https://www.st.com/en/development-tools/stlink-v3mini.html  
  Order from Mouser for € 10,75 https://eu.mouser.com/ProductDetail/STMicroelectronics/STLINK-V3MINIE
