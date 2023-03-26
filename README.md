@@ -32,7 +32,7 @@
  
  ## USB-C to SWD connector board
  [schematics can be found here.](/Schematic_USB-C_to_ST-Link.pdf)  
- <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>
+ <img src="images/SWD over USB-C top render.png" width="600" alt="SWD over USB-C connector"/>  
  Render of the USB-C to SWD connector board
 
  ### ST-Link debugger connections
