@@ -18,7 +18,7 @@
  Normal USB-C cables connect only one CC line which determines the orientation of the plug. The host's pull-up resistor defines the maximum current which can be drawn (for example 56kΩ to 5V for 500mA) and the device pulls the CC line down with a 5.1kΩ pull-down to enable host power delivery.
  For DAM (Debug Accessory Mode) we need to pull both CC lines high.  
  The official DAM resistor values are a bit different.  
- For 500mA @5V 10kΩ on CC1 and 22kΩ on CC2 should be used.  
+ For 500mA @5V 22kΩ on CC1 and 10kΩ on CC2 should be used.  
  - CC1: Host 22kΩ pull-up to 5V and device 5.1kΩ pull-down = 0.9V
  - CC2: Host 10kΩ pull-up to 5V and device 5.1kΩ pull-down = 1.7V
  
